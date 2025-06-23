@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iron Veil - A Cold War Espionage Game</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        #background-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -100;
+            opacity: 0.1;
+            object-fit: cover;
+        }
+        .splash-title {
+            font-family: 'Special Elite', cursive;
+            text-shadow: 2px 2px 4px rgba(255, 0, 0, 0.5);
+        }
+        .btn-primary {
+            background-color: #b91c1c;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #991b1b;
+        }
+        .btn-secondary {
+            background-color: #404040;
+            transition: background-color 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #262626;
+        }
+        .form-input {
+            background-color: #262626;
+            border-color: #404040;
+        }
+        .form-input:focus {
+            background-color: #1a1a1a;
+            border-color: #b91c1c;
+            outline: none;
+            box-shadow: none;
+        }
+        .hidden {
+            display: none;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen">
+
+    <!-- Looping Background Video -->
+    <video autoplay muted loop playsinline id="background-video">
+        <source src="https://assets.mixkit.co/videos/preview/mixkit-old-film-projector-light-leaks-33069-large.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div id="splash-page" class="text-center p-8 fade-in z-10">
+        <!-- AI-Generated Logo -->
+        <div class="mb-8">
+            <img src="https://storage.googleapis.com/gemini-prod-us-west1-assets/938596633917833216/images/f38a5b29-b6b8-477d-b31c-b2611a5b81a0.jpg" 
+                 alt="A retro-style logo for a Cold War espionage game called 'Iron Veil'."
+                 class="w-48 h-48 mx-auto rounded-full border-4 border-red-800 shadow-lg"
+                 onerror="this.onerror=null;this.src='https://placehold.co/192x192/1a1a1a/e0e0e0?text=Logo+Error';">
+        </div>
+        
+        <h1 class="text-5xl font-bold text-red-600 mb-4 splash-title">Iron Veil</h1>
+        <p class="text-gray-400 mb-8 max-w-md mx-auto">An interactive text-based RPG of Cold War espionage, betrayal, and global conspiracy.</p>
+        
+        <div class="space-y-4">
+            <button id="login-btn" class="w-full max-w-xs mx-auto py-3 px-6 text-white font-bold rounded-lg shadow-md btn-primary">LOGIN</button>
+            <button id="show-signup-btn" class="w-full max-w-xs mx-auto py-3 px-6 text-white font-bold rounded-lg shadow-md btn-secondary">CREATE DOSSIER</button>
+        </div>
+        
+        <!-- Social Media Icons -->
+        <div class="mt-12 flex justify-center space-x-6">
+            <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.297 3.655A19.95 19.95 0 0 0 16.03 2.02c-.525-.21-1.099-.344-1.693-.41L14.282 2h-.01a.34.34 0 0 0-.325.266c-.19.82-.499 2.112-.663 2.768a18.337 18.337 0 0 0-4.577 0C8.543 4.378 8.234 3.088 8.044 2.266A.34.34 0 0 0 7.72 2h-.01c.003.003 0 .006 0 .009l-.055.157c-.594.066-1.168.198-1.693.41A19.95 19.95 0 0 0 3.703 3.655a1.05 1.05 0 0 0-.297.803c0 6.136 3.63 11.218 8.59 11.218s8.59-5.082 8.59-11.218c0-.308-.099-.594-.297-.803ZM9.738 11.55c-.825 0-1.49-.938-1.49-2.094s.665-2.094 1.49-2.094c.825 0 1.49.938 1.49 2.094s-.665 2.094-1.49 2.094Zm4.524 0c-.825 0-1.49-.938-1.49-2.094s.665-2.094 1.49-2.094c.825 0 1.49.938 1.49 2.094s-.665 2.094-1.49 2.094Z"></path></svg>
+            </a>
+            <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.01.96-.02 1.92-.01 2.88.13 2.25-1.05 4.34-2.96 5.51-1.91 1.17-4.24 1.28-6.28.31-2.04-.97-3.4-2.93-3.6-5.21-.2-2.28 1.1-4.38 2.98-5.5.93-.55 1.96-.8 2.98-.82.02 1.52.01 3.04-.01 4.57-.45.06-1.03.1-1.48.16-.48.06-.92.21-1.37.42-1.35.63-2.24 2.07-2.24 3.53 0 1.83 1.34 3.32 3.01 3.5.21.02.43.03.64.03 1.67 0 3.01-1.34 3.01-3.01.02-2.48.01-4.95.02-7.43-.01-1.88-1.55-3.41-3.43-3.41-.02 0-.05 0-.07 0Z"></path></svg>
+            </a>
+        </div>
+    </div>
+
+    <div id="registration-page" class="w-full max-w-md p-8 bg-gray-800 rounded-lg shadow-2xl border border-gray-700 hidden fade-in z-10">
+        <h2 class="text-3xl font-bold text-center text-red-600 mb-6 splash-title">OPEN A NEW DOSSIER</h2>
+        
+        <form id="registration-form">
+            <div class="mb-4">
+                <label for="agent-name" class="block text-gray-400 text-sm font-bold mb-2">Agent Name:</label>
+                <input type="text" id="agent-name" name="agent-name" required class="form-input w-full px-3 py-2 text-white rounded-lg focus:outline-none" placeholder="e.g., Agent Shadow">
+            </div>
+            
+            <div class="mb-4">
+                <label for="password" class="block text-gray-400 text-sm font-bold mb-2">Password:</label>
+                <input type="password" id="password" name="password" required class="form-input w-full px-3 py-2 text-white rounded-lg focus:outline-none" placeholder="************">
+            </div>
+
+            <div class="mb-6">
+                <label for="confirm-password" class="block text-gray-400 text-sm font-bold mb-2">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" required class="form-input w-full px-3 py-2 text-white rounded-lg focus:outline-none" placeholder="************">
+            </div>
+
+            <div class="mb-6">
+                <label for="faction" class="block text-gray-400 text-sm font-bold mb-2">Pledge Allegiance:</label>
+                <select id="faction" name="faction" required class="form-input w-full px-3 py-2 text-white rounded-lg focus:outline-none appearance-none">
+                    <option value="" disabled selected>Select an Agency...</option>
+                    <option value="cia">CIA 🇺🇸</option>
+                    <option value="kgb">KGB 🇷🇺</option>
+                    <option value="mi6">MI6 🇬🇧</option>
+                    <option value="dgse">DGSE 🇫🇷</option>
+                    <option value="stasi">Stasi 🇩🇪</option>
+                    <option value="syndicate">Neutral Syndicate  mercenary to the highest bidder</option>
+                </select>
+            </div>
+
+            <div class="space-y-4">
+                <button type="submit" class="w-full py-3 px-6 text-white font-bold rounded-lg shadow-md btn-primary">CREATE DOSSIER</button>
+                <button type="button" id="back-to-splash-btn" class="w-full py-3 px-6 text-white font-bold rounded-lg shadow-md btn-secondary">BACK</button>
+            </div>
+        </form>
+    </div>
+    
+    <!-- Simple Message Modal -->
+    <div id="message-modal" class="hidden fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-20">
+        <div class="bg-gray-800 p-8 rounded-lg shadow-2xl border border-red-700 text-center">
+            <p id="modal-message-text" class="mb-4"></p>
+            <button id="close-modal-btn" class="py-2 px-6 text-white font-bold rounded-lg btn-primary">Close</button>
+        </div>
+    </div>
+
+
+    <script>
+        const splashPage = document.getElementById('splash-page');
+        const registrationPage = document.getElementById('registration-page');
+        const showSignupBtn = document.getElementById('show-signup-btn');
+        const backToSplashBtn = document.getElementById('back-to-splash-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const registrationForm = document.getElementById('registration-form');
+        
+        const messageModal = document.getElementById('message-modal');
+        const modalMessageText = document.getElementById('modal-message-text');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+
+        // Function to show a modal message instead of an alert
+        function showModal(message) {
+            modalMessageText.textContent = message;
+            messageModal.classList.remove('hidden');
+        }
+        
+        closeModalBtn.addEventListener('click', () => {
+            messageModal.classList.add('hidden');
+        });
+
+        showSignupBtn.addEventListener('click', () => {
+            splashPage.classList.add('hidden');
+            registrationPage.classList.remove('hidden');
+        });
+
+        backToSplashBtn.addEventListener('click', () => {
+            registrationPage.classList.add('hidden');
+            splashPage.classList.remove('hidden');
+        });
+        
+        loginBtn.addEventListener('click', () => {
+            // In a real app, this would link to the game or show a login form.
+            // For now, we link to a placeholder, or you could link to your other game file.
+            showModal('Login functionality is not yet implemented. Please create a new dossier.');
+        });
+
+        registrationForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+
+            if (password !== confirmPassword) {
+                showModal('Passwords do not match. Please try again.');
+                return;
+            }
+            
+            // In a real app, this would send the registration data to a backend server.
+            // For now, we can simulate success.
+            showModal('Dossier created successfully! Redirecting to login...');
+            
+            // You could store the user info in localStorage and redirect to the game
+            const agentName = document.getElementById('agent-name').value;
+            const faction = document.getElementById('faction').value;
+            console.log('New Agent:', { agentName, faction });
+
+            // Store the new player data in localStorage for the game to pick up
+            const newPlayer = {
+                name: agentName,
+                faction: faction,
+                // ... initialize all other player stats ...
+            };
+            localStorage.setItem('spy-game-player', JSON.stringify(newPlayer));
+
+            // Redirect to the game page after a delay
+            setTimeout(() => {
+                // Change this to the actual URL of your game file, e.g., "game.html"
+                window.location.href = "game.html"; 
+            }, 2000);
+        });
+
+    </script>
+</body>
+</html>
